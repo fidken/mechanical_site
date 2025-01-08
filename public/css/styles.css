@@ -12,8 +12,9 @@ header {
 
 main {
     margin-top: 60px; /* Смещаем main вниз на высоту header */
+    margin: 60px auto;
     padding: 20px;
-    width: 100%;
+    width: 1000px;
     box-sizing: border-box;
     background-color: white;
 }

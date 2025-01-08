@@ -1,0 +1,57 @@
+:root {
+    --footer-bg-color: #2c3e50; /* Темный фон футера */
+    --footer-text-color: #ecf0f1; /* Светлый текст */
+    --footer-link-color: #ecf0f1; /* Светлый цвет ссылок */
+    --footer-link-hover-color: #3498db; /* Синий при наведении */
+    --footer-padding: 30px;
+    --footer-radius: 10px; /* Скругление углов футера */
+  }
+  
+  footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    padding: var(--footer-padding);
+    border-radius: var(--footer-radius);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .footer-left, .footer-right {
+    flex: 1;
+    max-width: 45%;
+  }
+  
+  .footer-left h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-left p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 20px; /* Расстояние между ссылками */
+  }
+  
+  .footer-links a {
+    text-decoration: none;
+    color: var(--footer-link-color);
+    transition: color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  .footer-links a:hover {
+    color: var(--footer-link-hover-color); /* Синий цвет при наведении */
+  }
+  
+  .footer-right p {
+    font-size: 12px;
+    margin: 5px 0;
+  }
+  

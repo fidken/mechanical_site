@@ -1,0 +1,48 @@
+.calculator
+    .calculation-area
+        h2 Калькуляция по области
+        label(for="km-input") Количество километров (1 км - 100 рублей):
+        input#km-input.input(type="number" min="0")
+
+        label(for="floors-input") Этажность (1 этаж - 300 рублей):
+        input#floors-input.input(type="number" min="0")
+
+        p Итого сумма: 
+            span#total-area 0
+            |  рублей
+        button#order-area.order-btn Заказать
+
+    .calculation-kaliningrad
+        h2 Калькуляция по Калининграду
+        p Перевозки: 3000 рублей
+
+        label(for="floors-kln-input") Этажность (1 этаж - 300 рублей):
+        input#floors-kln-input.input(type="number" min="0")
+
+        p Итого сумма: 
+            span#total-kln 3000
+            |  рублей
+        button#order-kln.order-btn Заказать
+
+    .popup.hidden#popup-form
+      <form id="order-form">
+        <div class="popup-content">
+            <h2>Заполните контактные данные</h2>
+            <label for="name-input">ФИО:</label>
+            <input id="name-input" class="input" type="text">
+
+            <label for="phone-input">Телефон:</label>
+            <input id="phone-input" class="input" type="tel">
+
+            <label for="email-input">Почта:</label>
+            <input id="email-input" class="input" type="email">
+
+            <label for="comment-input">Ваш комментарий к заказу:</label>
+            <textarea id="comment-input" class="input"></textarea>
+
+            <input type="hidden" id="price-input">
+
+            <button type="submit" id="submit-form" class="submit-btn">Отправить</button>
+            <button type="button" id="close-form" class="close-btn">Закрыть</button>
+        </div>
+      </form>

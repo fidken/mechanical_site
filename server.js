@@ -1,12 +1,15 @@
+const PIN_CODE = '1234'; // Ваш PIN-код
+
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-
-const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 
+const nodemailer = require('nodemailer');
+
 // Middleware
+app.use(bodyParser.json());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
@@ -27,6 +30,76 @@ function writeDatabase(data) {
   fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 }
 
+// Load initial data
+let orders = [];
+if (fs.existsSync(dbPath)) {
+  orders = readDatabase();
+} else {
+  writeDatabase(orders);
+}
+
+// Endpoint to receive orders
+app.post('/api/orders', (req, res) => {
+  console.log('1')
+  const { customerInfo, comment, price } = req.body;
+
+  if (!customerInfo || !price) {
+    return res.status(400).json({ message: 'Invalid order data' });
+  }
+
+  const newOrder = {
+    id: orders.length + 1,
+    customerInfo,
+    comment: comment || '',
+    price,
+    paymentStatus: 'не оплачено',
+    orderStatus: 'выполняется',
+  };
+
+  orders.push(newOrder);
+  writeDatabase(orders);
+  res.status(201).json(newOrder);
+});
+
+// Endpoint to update order status or payment status
+app.put('/api/orders/:id', (req, res) => {
+  console.log("Получен запрос на обновление");
+  const orderId = parseInt(req.params.id, 10);
+  const { field, value } = req.body;
+
+  if (isNaN(orderId) || !field || value === undefined) {
+    return res.status(400).json({ message: 'Invalid request data' });
+  }
+
+  // Найти заказ по ID
+  const order = orders.find(order => order.id === orderId);
+  if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
+  }
+
+  // Обновить указанное поле (поддержка вложенных полей)
+  const fieldParts = field.split('.'); // Разделение по точке для вложенных полей
+  let target = order;
+
+  for (let i = 0; i < fieldParts.length - 1; i++) {
+    if (!(fieldParts[i] in target)) {
+      return res.status(400).json({ message: 'Invalid field name' });
+    }
+    target = target[fieldParts[i]]; // Переход к вложенному объекту
+  }
+
+  const finalField = fieldParts[fieldParts.length - 1];
+  if (!(finalField in target)) {
+    return res.status(400).json({ message: 'Invalid field name' });
+  }
+
+  target[finalField] = value;
+  writeDatabase(orders); // Сохранить изменения в базе данных
+  return res.status(200).json(order);
+});
+
+
+
 // Конфигурация для почты Mail.ru
 const transporter = nodemailer.createTransport({
   host: 'smtp.mail.ru',
@@ -37,6 +110,40 @@ const transporter = nodemailer.createTransport({
     pass: 'mt1Wm0KrVyKD28eMqbLT'   // пароль приложения из настроек Mail.ru
   },
 });
+
+
+// Проверка PIN-кода и установка cookie
+// Маршрут для админки с проверкой аутентификации
+// app.get('/admin', (req, res) => {
+//   if (req.cookies.auth === 'true') {
+//     res.render('pages/admin', { orders });
+//   } else {
+//     // Если нет доступа, перенаправляем на страницу входа
+//     res.redirect('/login'); // или res.status(403).send('Access denied');
+//   }
+// });
+app.get('/admin', (req, res) => {
+    res.render('pages/admin', { orders });
+});
+// Роут для страницы входа
+// app.get('/login', (req, res) => {
+//   res.render('login'); // Страница с формой для ввода PIN-кода
+// });
+
+// Роут для обработки PIN-кода (для POST-запросов)
+// app.post('/login', (req, res) => {
+//   const { pin } = req.body;
+//   if (pin === PIN_CODE) {
+//     res.cookie('auth', 'true', {
+//       httpOnly: true, // Защита от доступа через JS
+//       secure: false,  // Включите true для HTTPS
+//     });
+//     return res.status(200).json({ message: 'Access granted' });
+//   }
+//   res.status(401).json({ message: 'Invalid PIN' });
+// });
+
+
 
 // Обработчик отправки сообщения
 app.post('/send-message', async (req, res) => {
@@ -97,6 +204,8 @@ app.post('/api/contact', (req, res) => {
   res.json({ success: true, message: 'Your message has been received.' });
 });
 
+
+
 // Routes
 app.get('/about', (req, res) => {
     res.render('pages/about', { title: 'О НАС' });
@@ -114,7 +223,7 @@ app.get('/about', (req, res) => {
     res.render('pages/logout', { title: 'ВЫХОД' });
   });
 
-  
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;

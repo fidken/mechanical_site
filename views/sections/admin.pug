@@ -1,0 +1,81 @@
+//- div#pin-container(style="display: none;")
+//-   h2 Введите PIN-код для доступа
+//-   input#pin-input(type="password" placeholder="PIN-код")
+//-   button#submit-pin Войти
+//-   p#error-message(style="color: red; display: none;") Неверный PIN-код
+
+div#admin-content(style="")
+  h1 Admin Panel
+  table
+    thead
+      tr
+        th Номер заказа
+        th Информация о заказчике
+        th Комментарий
+        th Цена за услугу
+        th Оплата
+        th Статус выполнения
+    tbody
+      each order in orders
+        tr
+          td #{order.id}
+          td
+            div Имя: #{order.customerInfo.name}
+            div Телефон: #{order.customerInfo.phone}
+            div Email: #{order.customerInfo.email}
+          td #{order.comment}
+          td #{order.price} ₽
+          td
+            select(onchange=`handleStatusChange(${order.id}, 'paymentStatus', this.value, this.parentNode)`)
+              option(value="оплачено", selected=order.paymentStatus === 'оплачено') оплачено
+              option(value="не оплачено", selected=order.paymentStatus === 'не оплачено') не оплачено
+          td
+            select(onchange=`handleStatusChange(${order.id}, 'orderStatus', this.value, this.parentNode)`)
+              option(value="выполняется", selected=order.orderStatus === 'выполняется') выполняется
+              option(value="завершен", selected=order.orderStatus === 'завершен') завершен
+              option(value="отменён", selected=order.orderStatus === 'отменён') отменён
+
+//- script.
+//- document.addEventListener('DOMContentLoaded', () => {
+//-   const PIN_CODE = '1234'; // Ваш PIN-код
+//-   const pinContainer = document.getElementById('pin-container');
+//-   const adminContent = document.getElementById('admin-content');
+
+//-   // Проверка, есть ли доступ
+//-   if (getCookie('auth') === 'true') {
+//-     showAdminContent();
+//-   } else {
+//-     pinContainer.style.display = 'block';
+//-   }
+
+//-   document.getElementById('submit-pin').addEventListener('click', () => {
+//-     const pinInput = document.getElementById('pin-input').value;
+//-     if (pinInput === PIN_CODE) {
+//-       // Устанавливаем куки
+//-       setCookie('auth', 'true', 1); // Устанавливаем куки на 1 день
+//-       showAdminContent();
+//-     } else {
+//-       document.getElementById('error-message').style.display = 'block';
+//-     }
+//-   });
+
+//-   function showAdminContent() {
+//-     pinContainer.style.display = 'none';
+//-     adminContent.style.display = 'block';
+//-   }
+
+//-   // Функция для получения куки
+//-   function getCookie(name) {
+//-     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+//-     return match ? match[2] : null;
+//-   }
+
+//-   // Функция для установки куки
+//-   function setCookie(name, value, days) {
+//-     const expires = new Date();
+//-     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000)); // Время жизни куки
+//-     document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+//-   }
+//- });
+
+
