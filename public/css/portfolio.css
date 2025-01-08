@@ -1,0 +1,36 @@
+/* Общие стили для секции портфолио */
+#portfolio {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: auto; /* Чтобы позволить портфолио прокручиваться, если оно превышает высоту экрана */
+}
+
+#portfolio h2,
+#portfolio h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Стили для категорий */
+.portfolio-category {
+  margin-bottom: 40px;
+}
+
+.photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Расстояние между фотографиями */
+  justify-content: center; /* Выравнивание фотографий */
+}
+
+/* Контейнер для изображения с фиксированным соотношением сторон */
+.photos img {
+  max-width: calc(33.333% - 20px); /* Три фотографии в ряд */
+  aspect-ratio: 16/9; /* Прямоугольное горизонтальное соотношение сторон */
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Чтобы обрезать лишнее, если нужно */
+  border-radius: 8px; /* Немного скруглим углы */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}

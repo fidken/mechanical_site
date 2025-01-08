@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чат поддержки</title>
+  <style>
+    .chat-box {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      width: 300px;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .chat-box input, .chat-box textarea, .chat-box button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-box">
+    <h3>Напишите нам</h3>
+    <form id="chat-form">
+      <input type="text" id="name" placeholder="Ваше имя" required>
+      <input type="email" id="email" placeholder="Ваш email" required>
+      <textarea id="message" placeholder="Ваше сообщение" required></textarea>
+      <button type="submit">Отправить</button>
+    </form>
+    <p id="status"></p>
+  </div>
+  <script>
+    document.getElementById('chat-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const status = document.getElementById('status');
+      status.textContent = 'Отправка...';
+
+      try {
+        const response = await fetch('/send-message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        if (response.ok) {
+          status.textContent = 'Сообщение отправлено!';
+        } else {
+          throw new Error('Ошибка отправки');
+        }
+      } catch (error) {
+        console.error(error);
+        status.textContent = 'Не удалось отправить сообщение.';
+      }
+    });
+  </script>
+</body>
+</html>

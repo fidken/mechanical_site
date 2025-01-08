@@ -1,0 +1,22 @@
+// Контейнер для кнопки и всплывающего окна
+div#contact-container
+  // Кнопка с иконкой телефона
+  button#contact-btn
+    i.fa.fa-phone
+
+  // Всплывающее окно с контактами
+  div#contact-info(style="display: none;")
+    p Телефон: 
+      span.clickable#phone-number() (123) 456-7890
+    p Telegram: 
+      span.clickable#telegram() https://t.me/example
+    p Viber: 
+      span.clickable#viber() viber://example
+    p WhatsApp: 
+      span.clickable#whatsapp() https://wa.me/1234567890
+    p Почта: 
+      span.clickable#email() example@mail.com
+
+  // Всплывающее уведомление о копировании
+//-   div#notification(style="display: none;")
+//-     p Скопировано!

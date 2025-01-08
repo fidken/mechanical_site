@@ -1,0 +1,45 @@
+:root {
+    --navbar-height: 60px; /* Высота навигационной панели */
+    --navbar-bg-color: #007BFF; /* Цвет фона навигационной панели */
+    --navbar-text-color: white; /* Цвет текста */
+    --navbar-hover-bg-color: #0056b3; /* Цвет фона при наведении */
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center; /* Центрирование элементов по горизонтали */
+    align-items: center; /* Центрирование элементов по вертикали */
+    background-color: var(--navbar-bg-color);
+    height: var(--navbar-height);
+  }
+  
+  .navbar-container {
+    display: flex;
+    flex-direction: row; /* Расположение элементов в строку */
+    flex-wrap: nowrap; /* Не переносить элементы на новую строку */
+  }
+  
+  .nav-item {
+    box-sizing: border-box;
+    color: var(--navbar-text-color);
+    text-decoration: none;
+    height: 60px;
+    padding:  20px; 
+    transition: background-color 0.3s ease; /* Плавный переход при наведении */
+  }
+  
+  .nav-item:hover {
+    background-color: var(--navbar-hover-bg-color); /* Цвет фона при наведении */
+    /* border-radius: 5px; Скругление углов кнопок */
+  }
+  
+  /* Пример изменения порядка элементов через flex-order */
+  .nav-item:nth-child(1) { order: 1; }
+  .nav-item:nth-child(2) { order: 2; }
+  .nav-item:nth-child(3) { order: 3; }
+  .nav-item:nth-child(4) { order: 4; }
+  

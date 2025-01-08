@@ -1,0 +1,51 @@
+//- section#portfolio
+//-   h2 Портфолио
+//-   p Здесь представлены наши работы.
+  
+//-   .portfolio-category
+//-     h3 Отделочные работы
+//-     .photos
+//-       img(src="images/finishing1.jpg" alt="Отделочные работы 1")
+//-       img(src="images/finishing2.jpg" alt="Отделочные работы 2")
+//-       img(src="images/finishing3.jpg" alt="Отделочные работы 3")
+
+//-   .portfolio-category
+//-     h3 Монтажные работы систем вентиляции и кондиционирования
+//-     .photos
+//-       img(src="images/ventilation1.jpg" alt="Вентиляция 1")
+//-       img(src="images/ventilation2.jpg" alt="Вентиляция 2")
+//-       img(src="images/ventilation3.jpg" alt="Вентиляция 3")
+
+//-   .portfolio-category
+//-     h3 Монтажные работы систем отопления
+//-     .photos
+//-       img(src="images/heating1.jpg" alt="Отопление 1")
+//-       img(src="images/heating2.jpg" alt="Отопление 2")
+//-       img(src="images/heating3.jpg" alt="Отопление 3")
+
+section#portfolio
+  h2 Портфолио
+  p Здесь представлены наши работы.
+
+  - var finishingPhotos = 21
+  - var ventilationPhotos = 14
+  - var heatingPhotos = 19
+
+  .portfolio-category
+    h3 Отделочные работы
+    .photos
+      each i in Array(finishingPhotos).fill(0).map((_, idx) => idx + 1)
+        img(src=`images/finishing${i}.jpg` alt=`Отделочные работы ${i}`)
+      
+  .portfolio-category
+    h3 Монтажные работы систем вентиляции и кондиционирования
+    .photos
+      each i in Array(ventilationPhotos).fill(0).map((_, idx) => idx + 1)
+        img(src=`images/ventilation${i}.jpg` alt=`Вентиляция ${i}`)
+
+  .portfolio-category
+    h3 Монтажные работы систем отопления
+    .photos
+      each i in Array(heatingPhotos).fill(0).map((_, idx) => idx + 1)
+        img(src=`images/heating${i}.jpg` alt=`Отопление ${i}`)
+

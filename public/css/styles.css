@@ -1,0 +1,19 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    position: fixed; /* Чтобы header был всегда наверху */
+    top: 0;
+    width: 100%; /* Убедитесь, что header занимает всю ширину */
+    height: 60px; /* Явно задайте высоту */
+    z-index: 1000; /* Чтобы header находился над остальными элементами */
+}
+
+main {
+    margin-top: 60px; /* Смещаем main вниз на высоту header */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+}
