@@ -12,6 +12,7 @@ div#admin-content(style="")
         th Номер заказа
         th Информация о заказчике
         th Комментарий
+        th Услуга
         th Цена за услугу
         th Оплата
         th Статус выполнения
@@ -24,6 +25,7 @@ div#admin-content(style="")
             div Телефон: #{order.customerInfo.phone}
             div Email: #{order.customerInfo.email}
           td #{order.comment}
+          td #{order.service} 
           td #{order.price} ₽
           td
             select(onchange=`handleStatusChange(${order.id}, 'paymentStatus', this.value, this.parentNode)`)

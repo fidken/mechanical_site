@@ -10,7 +10,7 @@
         p Итого сумма: 
             span#total-area 0
             |  рублей
-        button#order-area.order-btn Заказать
+        button#order-area.order-btn(data-service="Транспортная услуга по области") Заказать
 
     .calculation-kaliningrad
         h2 Калькуляция по Калининграду
@@ -22,7 +22,7 @@
         p Итого сумма: 
             span#total-kln 3000
             |  рублей
-        button#order-kln.order-btn Заказать
+        button#order-kln.order-btn(data-service="Транспортная услуга по Калининграду") Заказать
 
     .popup.hidden#popup-form
       <form id="order-form">
@@ -41,6 +41,7 @@
             <textarea id="comment-input" class="input"></textarea>
 
             <input type="hidden" id="price-input">
+            <input type="hidden" id="service-input">
 
             <button type="submit" id="submit-form" class="submit-btn">Отправить</button>
             <button type="button" id="close-form" class="close-btn">Закрыть</button>

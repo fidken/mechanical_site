@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   
     const updateRowClasses = (row) => {
-        const paymentCell = row.querySelector('td:nth-child(5)');
-        const orderCell = row.querySelector('td:nth-child(6)');
+        const paymentCell = row.querySelector('td:nth-child(6)');
+        const orderCell = row.querySelector('td:nth-child(7)');
         const paymentSelect = paymentCell.querySelector('select');
         const orderSelect = orderCell.querySelector('select');
       

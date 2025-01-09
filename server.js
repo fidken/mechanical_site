@@ -17,6 +17,32 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// Конфигурация для почты Mail.ru
+const transporter = nodemailer.createTransport({
+  host: 'smtp.mail.ru',
+  port: 465,
+  secure: true, // true для 465, false для других портов
+  auth: {
+    user: 'dayzmob@bk.ru', // замените на вашу почту Mail.ru
+    pass: 'mt1Wm0KrVyKD28eMqbLT'   // пароль приложения из настроек Mail.ru
+  },
+});
+
+const fieldNamesMap = {
+  price: 'Стоимость заказа',
+  service: 'Услуга',
+  comment: 'Комментарий',
+  orderStatus: 'Статус заказа',
+  paymentStatus: 'Статус оплаты',
+  customerInfo: 'Информация о клиенте',
+  'customerInfo.name': 'ФИО клиента',
+  'customerInfo.phone': 'Номер телефона клиента',
+  'customerInfo.email': 'Электронная почта клиента',
+};
+
+
+
 // Simulated JSON Database
 const dbPath = path.join(__dirname, 'db.json');
 
@@ -39,9 +65,10 @@ if (fs.existsSync(dbPath)) {
 }
 
 // Endpoint to receive orders
-app.post('/api/orders', (req, res) => {
-  console.log('1')
-  const { customerInfo, comment, price } = req.body;
+// Endpoint to receive orders
+app.post('/api/orders', async (req, res) => {
+  console.log('1');
+  const { customerInfo, comment, price, service } = req.body;
 
   if (!customerInfo || !price) {
     return res.status(400).json({ message: 'Invalid order data' });
@@ -52,17 +79,32 @@ app.post('/api/orders', (req, res) => {
     customerInfo,
     comment: comment || '',
     price,
+    service,
     paymentStatus: 'не оплачено',
     orderStatus: 'выполняется',
   };
 
   orders.push(newOrder);
-  writeDatabase(orders);
+  writeDatabase(orders); // Функция для записи в базу данных
+
+  // Отправка уведомления пользователю
+  try {
+    await transporter.sendMail({
+      from: '"Служба поддержки" <dayzmob@bk.ru>', // Замените на вашу почту
+      to: customerInfo.email, // Предполагается, что email находится в customerInfo
+      subject: 'Ваш заказ принят',
+      text: `Уважаемый(ая) ${customerInfo.name},\n\nБлагодарим вас за ваш заказ! Мы успешно получили вашу заявку.\n\nИнформация о заказе:\n\nФИО: ${customerInfo.name}\nНомер телефона: ${customerInfo.phone}\nЭлектронная почта: ${customerInfo.email}\nУслуга: ${service}\nСтоимость: ${price}\nКомментарий: ${comment || 'нет комментариев'}\n\nВаш заказ сейчас находится в статусе: "выполняется".\n\nМы свяжемся с вами в ближайшее время, чтобы уточнить детали и сроки выполнения вашего заказа.\n\nЕсли у вас есть вопросы или пожелания, вы всегда можете связаться с нами:\n\nТелефон: [Сюда вставляем номер поддержки]\nЭлектронная почта: [Сюда вставляем контактную почту]\n\nСпасибо, что выбрали нас!\n\nС уважением,\n[Название компании]\n[Контактная информация]`,
+    });
+  } catch (error) {
+    console.error('Ошибка при отправке письма:', error);
+    return res.status(500).json({ message: 'Не удалось отправить уведомление.' });
+  }
+
   res.status(201).json(newOrder);
 });
 
 // Endpoint to update order status or payment status
-app.put('/api/orders/:id', (req, res) => {
+app.put('/api/orders/:id', async (req, res) => {
   console.log("Получен запрос на обновление");
   const orderId = parseInt(req.params.id, 10);
   const { field, value } = req.body;
@@ -95,21 +137,27 @@ app.put('/api/orders/:id', (req, res) => {
 
   target[finalField] = value;
   writeDatabase(orders); // Сохранить изменения в базе данных
+
+// Отправка уведомления пользователю об обновлении заказа
+try {
+  await transporter.sendMail({
+    from: '"Служба поддержки ИП Александров" <dayzmob@bk.ru>', // Замените на вашу почту
+    to: order.customerInfo.email, // Email клиента
+    subject: 'Обновление вашего заказа',
+    text: `Уважаемый(ая) ${order.customerInfo.name},\n\nМы обновили информацию по вашему заказу (ID: ${order.id}).\n\nОбновление:\n\nПоле: ${fieldNamesMap[field] || field}\nНовое значение: ${value}\n\nТекущая информация по вашему заказу:\n\nФИО: ${order.customerInfo.name}\nНомер телефона: ${order.customerInfo.phone}\nЭлектронная почта: ${order.customerInfo.email}\nУслуга: ${order.service}\nСтоимость: ${order.price}\nКомментарий: ${order.comment || 'нет комментариев'}\n\nЕсли у вас есть вопросы или пожелания, пожалуйста, свяжитесь с нами:\n\nТелефон: [Укажите ваш номер поддержки]\nЭлектронная почта: [Укажите вашу контактную почту]\n\nСпасибо за ваше доверие!\n\nС уважением,\n[Название компании]\n[Контактная информация]`,
+  });
+  
+} catch (error) {
+  console.error('Ошибка при отправке письма:', error);
+  return res.status(500).json({ message: 'Не удалось отправить уведомление об обновлении.' });
+}
+
+
   return res.status(200).json(order);
 });
 
 
 
-// Конфигурация для почты Mail.ru
-const transporter = nodemailer.createTransport({
-  host: 'smtp.mail.ru',
-  port: 465,
-  secure: true, // true для 465, false для других портов
-  auth: {
-    user: 'dayzmob@bk.ru', // замените на вашу почту Mail.ru
-    pass: 'mt1Wm0KrVyKD28eMqbLT'   // пароль приложения из настроек Mail.ru
-  },
-});
 
 
 // Проверка PIN-кода и установка cookie
@@ -156,7 +204,7 @@ app.post('/send-message', async (req, res) => {
   try {
     // Настройка письма
     await transporter.sendMail({
-      from: '"Служба поддержки" dayzmob@bk.ru', // замените на вашу почту
+      from: '"Служба поддержки ИП Александров" dayzmob@bk.ru', // замените на вашу почту
       to: email,
       subject: 'Ваше сообщение принято',
       text: `Здравствуйте, ${name}!\n\nМы получили ваше сообщение:\n${message}\n\nСпасибо за обращение!`,
@@ -171,13 +219,14 @@ app.post('/send-message', async (req, res) => {
 
 // Routes
 app.get('/', (req, res) => {
-  const db = readDatabase();
-  const photos = [
-    '/images/photo1.jpg',
-    '/images/photo2.jpg',
-    '/images/photo3.jpg'
-]; 
-  res.render('index', { photos,services: db.services, portfolio: db.portfolio });
+//   const db = readDatabase();
+//   const photos = [
+//     '/images/photo1.jpg',
+//     '/images/photo2.jpg',
+//     '/images/photo3.jpg'
+// ]; 
+//   res.render('index', { photos,services: db.services, portfolio: db.portfolio });
+res.render('pages/services', { title: 'УСЛУГИ' });
 });
 
 app.get('/api/services', (req, res) => {
