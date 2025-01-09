@@ -15,6 +15,17 @@
     align-items: center; /* Центрирование элементов по вертикали */
     background-color: var(--navbar-bg-color);
     height: var(--navbar-height);
+    box-sizing: border-box;
+  }
+
+  .navbar img {
+    position: absolute;
+    left: calc((100vw - 1000px)/2);
+    height: var(--navbar-height);
+    border-color: var(--navbar-bg-color);
+    border-width: 5px;
+    box-sizing: border-box;
+    border-style: solid;
   }
   
   .navbar-container {

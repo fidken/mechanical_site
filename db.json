@@ -9,7 +9,7 @@
     "comment": "Bowza!",
     "price": "400.00",
     "service": "Транспортная услуга по области",
-    "paymentStatus": "не оплачено",
+    "paymentStatus": "оплачено",
     "orderStatus": "выполняется"
   },
   {
@@ -228,6 +228,110 @@
       "email": "kohpelfid@gmail.com"
     },
     "comment": "wer",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 19,
+    "customerInfo": {
+      "name": "Рейму Хакурей",
+      "phone": "88005553535",
+      "email": "kohpelfid@gmail.com"
+    },
+    "comment": "ав",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 20,
+    "customerInfo": {
+      "name": "Рейму Хакурей",
+      "phone": "88005553535",
+      "email": "kohpelfid@gmail.com"
+    },
+    "comment": "1",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 21,
+    "customerInfo": {
+      "name": "Рейму Хакурей",
+      "phone": "88005553535",
+      "email": "kohpelfid@gmail.com"
+    },
+    "comment": "УРА",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 22,
+    "customerInfo": {
+      "name": "Рейму Хакурей",
+      "phone": "88005553535",
+      "email": "kohpelfid@gmail.com"
+    },
+    "comment": "123",
+    "price": "73200.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 23,
+    "customerInfo": {
+      "name": "Генерал",
+      "phone": "88005553535",
+      "email": "dayzmob@bk.ru"
+    },
+    "comment": "Оформление заказа",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 24,
+    "customerInfo": {
+      "name": "Генерал",
+      "phone": "88005553535",
+      "email": "dayzmob@bk.ru"
+    },
+    "comment": "1!",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 25,
+    "customerInfo": {
+      "name": "312",
+      "phone": "312",
+      "email": "3123213@example.com"
+    },
+    "comment": "121",
+    "price": "3300.00",
+    "service": "Транспортная услуга по Калининграду",
+    "paymentStatus": "не оплачено",
+    "orderStatus": "выполняется"
+  },
+  {
+    "id": 26,
+    "customerInfo": {
+      "name": "Хакумен",
+      "phone": "888",
+      "email": "dayzmob@bk.ru"
+    },
+    "comment": "121",
     "price": "3300.00",
     "service": "Транспортная услуга по Калининграду",
     "paymentStatus": "не оплачено",

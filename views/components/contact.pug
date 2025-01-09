@@ -4,18 +4,32 @@ div#contact-container
   button#contact-btn
     i.fa.fa-phone
 
-  // Всплывающее окно с контактами
+  //- // Всплывающее окно с контактами
+  //- div#contact-info(style="display: none;")
+  //-   p Телефон: 
+  //-     span.clickable#phone-number() +7 921 711 2494
+  //-   p Telegram: 
+  //-     span.clickable#telegram() https://t.me/aleks19899
+  //-   p Viber: 
+  //-     span.clickable#viber() https://viber.click/79217112494
+  //-   p WhatsApp: 
+  //-     span.clickable#whatsapp() wa.me/+79217112494
+  //-   p Почта: 
+  //-     span.clickable#email() aleksandrovevg09@rambler.ru
+
+    // Всплывающее окно с контактами
   div#contact-info(style="display: none;")
     p Телефон: 
-      span.clickable#phone-number() (123) 456-7890
+      span.clickable#phone-number +7 921 711 2494
     p Telegram: 
-      span.clickable#telegram() https://t.me/example
+      a.clickable#telegram(href="https://t.me/aleks19899" target="_blank") https://t.me/aleks19899
     p Viber: 
-      span.clickable#viber() viber://example
+      a.clickable#viber(href="https://viber.click/79217112494" target="_blank") https://viber.click/79217112494
     p WhatsApp: 
-      span.clickable#whatsapp() https://wa.me/1234567890
+      a.clickable#whatsapp(href="https://wa.me/+79217112494" target="_blank") https://wa.me/+79217112494
     p Почта: 
-      span.clickable#email() example@mail.com
+      span.clickable#email aleksandrovevg09@rambler.ru
+
 
   // Всплывающее уведомление о копировании
 //-   div#notification(style="display: none;")

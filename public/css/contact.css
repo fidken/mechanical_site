@@ -31,7 +31,7 @@
   #contact-info {
     padding-bottom: s0px;
     color: white; /* Белый текст для контраста */
-    width: 250px;
+    width: 300px;
     position: absolute;
     bottom: 0px; /* Положение меню */
     right: 0;
@@ -52,7 +52,7 @@
     align-items: flex-start;
 }
 
-#contact-info span {
+#contact-info span, #contact-info a {
     position: relative; /* Необходимо для позиционирования псевдоэлемента */
     color: #ff9120; /* Цвет текста */
     font-weight: bold; /* Сделать текст жирнее */
@@ -60,7 +60,7 @@
     transition: color 0.3s ease; /* Плавный переход цвета текста */
 }
 
-#contact-info span::after {
+#contact-info span::after, #contact-info a::after {
     content: ''; /* Обязательно для создания псевдоэлемента */
     position: absolute; /* Позволяет позиционировать линию относительно текста */
     left: 0;
@@ -72,11 +72,11 @@
     transition: transform 0.3s ease, background-color 0.3s ease; /* Синхронизируем переходы */
 }
 
-#contact-info span.active {
+#contact-info span.active, #contact-info a.active {
     color: #00ff00; /* Цвет текста при активном состоянии */
 }
 
-#contact-info span.active::after {
+#contact-info span.active::after, #contact-info a.active::after {
     transform: scaleX(1); /* Подчеркивание сохраняется */
     background-color: #00ff00; /* Цвет подчеркивания при активном состоянии */
     transition: transform 0.3s ease, background-color 0.3s ease; /* Синхронизируем переходы */
@@ -85,7 +85,7 @@
 #contact-info span:hover {
 }
 
-#contact-info span:hover::after {
+#contact-info span:hover::after, #contact-info a:hover::after {
     transform: scaleX(1); /* Линия появляется при наведении */
 }
 
