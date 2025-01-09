@@ -24,8 +24,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // true для 465, false для других портов
   auth: {
-    user: 'dayzmob@bk.ru', // замените на вашу почту Mail.ru
-    pass: 'mt1Wm0KrVyKD28eMqbLT'   // пароль приложения из настроек Mail.ru
+    user: 'yefremevi@mail.ru', // замените на вашу почту Mail.ru
+    pass: 'tnEaUbqmcjqGJLeRcCWz'   // пароль приложения из настроек Mail.ru
   },
 });
 
@@ -141,7 +141,7 @@ app.put('/api/orders/:id', async (req, res) => {
 // Отправка уведомления пользователю об обновлении заказа
 try {
   await transporter.sendMail({
-    from: '"Служба поддержки ИП Александров" <dayzmob@bk.ru>', // Замените на вашу почту
+    from: '"Служба поддержки ИП Александров" <yefremevi@mail.ru>', // Замените на вашу почту
     to: order.customerInfo.email, // Email клиента
     subject: 'Обновление вашего заказа',
     text: `Уважаемый(ая) ${order.customerInfo.name},\n\nМы обновили информацию по вашему заказу (ID: ${order.id}).\n\nОбновление:\n\nПоле: ${fieldNamesMap[field] || field}\nНовое значение: ${value}\n\nТекущая информация по вашему заказу:\n\nФИО: ${order.customerInfo.name}\nНомер телефона: ${order.customerInfo.phone}\nЭлектронная почта: ${order.customerInfo.email}\nУслуга: ${order.service}\nСтоимость: ${order.price}\nКомментарий: ${order.comment || 'нет комментариев'}\n\nЕсли у вас есть вопросы или пожелания, пожалуйста, свяжитесь с нами:\n\nТелефон: [Укажите ваш номер поддержки]\nЭлектронная почта: [Укажите вашу контактную почту]\n\nСпасибо за ваше доверие!\n\nС уважением,\n[Название компании]\n[Контактная информация]`,
