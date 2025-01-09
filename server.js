@@ -90,7 +90,7 @@ app.post('/api/orders', async (req, res) => {
   // Отправка уведомления пользователю
   try {
     await transporter.sendMail({
-      from: '"Служба поддержки" <yefremevi@mail.ru>', // Замените на вашу почту
+      from: '"Служба поддержки ИП Александров" <yefremevi@mail.ru>', // Замените на вашу почту
       to: customerInfo.email, // Предполагается, что email находится в customerInfo
       subject: 'Ваш заказ принят',
       text: `Здравствуйте, ${customerInfo.name}!
