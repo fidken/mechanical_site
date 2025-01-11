@@ -9,4 +9,8 @@
     display: block; /* Для корректного отображения */
   
 }
-
+a, button {
+    display: block;
+    /* margin-bottom: 10px; Расстояние между элементами */
+  }
+  

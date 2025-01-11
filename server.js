@@ -73,7 +73,7 @@ app.post('/api/orders', async (req, res) => {
   if (!customerInfo || !price) {
     return res.status(400).json({ message: 'Invalid order data' });
   }
-
+  console.log("ЦЕНА " + price);
   const newOrder = {
     id: orders.length + 1,
     customerInfo,
@@ -112,6 +112,29 @@ app.post('/api/orders', async (req, res) => {
 - Почта: aleksandrovevg09@rambler.ru
 
 Ещё раз спасибо, что выбрали нас! 
+
+С уважением,  
+ИП Александров  
+Телефон: +7 921 711 2494  
+Почта: aleksandrovevg09@rambler.ru
+`
+      // text: `Уважаемый(ая) ${customerInfo.name},\n\nБлагодарим вас за ваш заказ! Мы успешно получили вашу заявку.\n\nИнформация о заказе:\n\nФИО: ${customerInfo.name}\nНомер телефона: ${customerInfo.phone}\nЭлектронная почта: ${customerInfo.email}\nУслуга: ${service}\nСтоимость: ${price}\nКомментарий: ${comment || 'нет комментариев'}\n\nВаш заказ сейчас находится в статусе: "выполняется".\n\nМы свяжемся с вами в ближайшее время, чтобы уточнить детали и сроки выполнения вашего заказа.\n\nЕсли у вас есть вопросы или пожелания, вы всегда можете связаться с нами:\n\nТелефон: [Сюда вставляем номер поддержки]\nЭлектронная почта: [Сюда вставляем контактную почту]\n\nСпасибо, что выбрали нас!\n\nС уважением,\n[Название компании]\n[Контактная информация]`,
+    });
+    await transporter.sendMail({
+      from: '"Служба поддержки ИП Александров" <yefremevi@mail.ru>', // Замените на вашу почту
+      to: "yefremevi@mail.ru", // Предполагается, что email находится в customerInfo
+      subject: 'Поступил заказ',
+      text: `Здравствуйте, ${customerInfo.name}!
+
+Поступил новый заказ.
+
+Детали вашего заказа:
+- Имя: ${customerInfo.name}
+- Телефон: ${customerInfo.phone}
+- Email: ${customerInfo.email}
+- Услуга: ${service}
+- Цена: ${price}
+- Комментарий: ${comment || 'отсутствует'}
 
 С уважением,  
 ИП Александров  

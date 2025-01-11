@@ -1,0 +1,23 @@
+.popup.hidden#popup-form
+      <form id="order-form">
+        <div class="popup-content">
+            <h2>Заполните контактные данные</h2>
+            <label for="name-input">ФИО:</label>
+            <input id="name-input" class="input" type="text">
+
+            <label for="phone-input">Телефон:</label>
+            <input id="phone-input" class="input" type="tel">
+
+            <label for="email-input">Почта:</label>
+            <input id="email-input" class="input" type="email">
+
+            <label for="comment-input">Ваш комментарий к заказу:</label>
+            <textarea id="comment-input" class="input"></textarea>
+
+            <input type="hidden" id="price-input">
+            <input type="hidden" id="service-input">
+
+            <button type="submit" id="submit-form" class="submit-btn">Отправить</button>
+            <button type="button" id="close-form" class="close-btn">Закрыть</button>
+        </div>
+      </form>
