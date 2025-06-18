@@ -24,8 +24,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // true для 465, false для других портов
   auth: {
-    user: 'yefremevi@mail.ru', // замените на вашу почту Mail.ru
-    pass: 'tnEaUbqmcjqGJLeRcCWz'   // пароль приложения из настроек Mail.ru
+    user: '', // замените на вашу почту Mail.ru
+    pass: ''   // пароль приложения из настроек Mail.ru
   },
 });
 
